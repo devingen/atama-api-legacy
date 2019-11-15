@@ -36,8 +36,8 @@ type CalculationResult struct {
 
 // possibleMatchCount = (maxIterationLimit + 1) ^ maxIterationLevel
 // EXCEPTION maxIterationLevel=0 -> possibleMatchCount=1
-var maxIterationLimit = 30
-var maxIterationLevel = 3
+var maxIterationLimit = 4
+var maxIterationLevel = 4
 
 func CalculateList(scoreMatrix []MatchItemScores, occupationMap OccupationMap, level int, reversed bool) CalculationResult {
 
@@ -45,26 +45,13 @@ func CalculateList(scoreMatrix []MatchItemScores, occupationMap OccupationMap, l
 	totalPossibleMatchCount := 0
 	bestMatches := map[string]ResultPairScore{}
 
+	partLength := len(scoreMatrix) / maxIterationLimit
 	for i := range scoreMatrix {
 
-		index := i / 2
-		if level == 0 {
-			// override the reversed if first level
-			reversed = i%2 == 1
+		index := i * partLength
+		if index >= len(scoreMatrix) {
+			index -= 1
 		}
-
-		if reversed {
-			index = len(scoreMatrix) - index - 1
-		}
-		//fmt.Println("reversed", reversed, index)
-		//if level == 0 {
-		//	fmt.Println("")
-		//	fmt.Println("")
-		//}
-		//for j := 0; j < level; j += 1 {
-		//	fmt.Print("-")
-		//}
-		//fmt.Println(level)
 
 		matches := map[string]ResultPairScore{}
 
