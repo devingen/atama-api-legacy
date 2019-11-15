@@ -53,7 +53,7 @@ func BuildPairs(w http.ResponseWriter, r *http.Request) {
 	scoreMatrix := atama.GenerateScoreMatrix(generateScoreMatrixConfig, body.Rules, body.List1, body.List2, body.List1Fields, body.List2Fields)
 	log.Printf("GenerateScoreMatrix took %s", time.Since(start))
 
-	result := atama.CalculateList(scoreMatrix, nil, 0)
+	result := atama.CalculateList(scoreMatrix, nil, 0, false)
 	log.Printf("CalculateList took %s", time.Since(start))
 
 	_ = json.NewEncoder(w).Encode(result)

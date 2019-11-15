@@ -36,16 +36,27 @@ type CalculationResult struct {
 
 // possibleMatchCount = (maxIterationLimit + 1) ^ maxIterationLevel
 // EXCEPTION maxIterationLevel=0 -> possibleMatchCount=1
-var maxIterationLimit = 20
+var maxIterationLimit = 30
 var maxIterationLevel = 3
 
-func CalculateList(scoreMatrix []MatchItemScores, occupationMap OccupationMap, level int) CalculationResult {
+func CalculateList(scoreMatrix []MatchItemScores, occupationMap OccupationMap, level int, reversed bool) CalculationResult {
 
 	var maxScore float64 = 0
 	totalPossibleMatchCount := 0
 	bestMatches := map[string]ResultPairScore{}
 
 	for i := range scoreMatrix {
+
+		index := i / 2
+		if level == 0 {
+			// override the reversed if first level
+			reversed = i%2 == 1
+		}
+
+		if reversed {
+			index = len(scoreMatrix) - index - 1
+		}
+		//fmt.Println("reversed", reversed, index)
 		//if level == 0 {
 		//	fmt.Println("")
 		//	fmt.Println("")
@@ -67,7 +78,7 @@ func CalculateList(scoreMatrix []MatchItemScores, occupationMap OccupationMap, l
 		scoreMatrixClone := make([]MatchItemScores, len(scoreMatrix))
 		copy(scoreMatrixClone[:], scoreMatrix)
 
-		pivot := scoreMatrixClone[i]
+		pivot := scoreMatrixClone[index]
 
 		var score float64 = 0
 		match := getFirstAvailableMatch(pivot, internalOccupation)
@@ -94,7 +105,7 @@ func CalculateList(scoreMatrix []MatchItemScores, occupationMap OccupationMap, l
 		}
 
 		// remove the pivot from the list and calculate the list for rest of the items
-		rest := splice(scoreMatrixClone, i)
+		rest := splice(scoreMatrixClone, index)
 
 		//fmt.Println()
 		//fmt.Println("level", level)
@@ -103,7 +114,7 @@ func CalculateList(scoreMatrix []MatchItemScores, occupationMap OccupationMap, l
 		//	fmt.Println("      ", item.Item.GetID())
 		//}
 
-		innerCalculation := CalculateList(rest, internalOccupation, level+1)
+		innerCalculation := CalculateList(rest, internalOccupation, level+1, reversed)
 
 		// add matches from the inner calculation
 		for k, v := range innerCalculation.Matches {
@@ -114,7 +125,7 @@ func CalculateList(scoreMatrix []MatchItemScores, occupationMap OccupationMap, l
 		score += innerCalculation.MaxScore
 
 		if level == 0 {
-			fmt.Println(i, "score", score)
+			fmt.Println(index, "score", score)
 		}
 
 		if score >= maxScore {
