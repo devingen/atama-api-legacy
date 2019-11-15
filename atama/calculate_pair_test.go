@@ -104,8 +104,7 @@ type CalculatePairTest struct {
 	expected float64
 }
 
-var calculatorConfig = model.CalculatorConfig{
-}
+var calculatorConfig = model.CalculatorConfig{}
 
 var rules1 = []model.ConditionalComparisonRule{
 	{

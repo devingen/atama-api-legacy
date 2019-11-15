@@ -15,7 +15,7 @@ func compareValues(comparison model.Comparison, value1, value2 interface{}) floa
 
 	switch comparison {
 	case model.ComparisonEq:
-		if value1 == value2 {
+		if value1 != nil && value2 != nil && value1 == value2 {
 			return 1
 		}
 	case model.ComparisonNe:
@@ -58,7 +58,15 @@ func compareValues(comparison model.Comparison, value1, value2 interface{}) floa
 	return 0
 }
 
-func CalculatePair(config model.CalculatorConfig, rules []model.ConditionalComparisonRule, data1 map[string]interface{}, data2 map[string]interface{}) float64 {
+type FieldOptionLabelMap map[string]map[interface{}]interface{}
+
+func CalculatePair(
+	config model.CalculatorConfig,
+	rules []model.ConditionalComparisonRule,
+	list1FieldOptionLabelMap, list2FieldOptionLabelMap FieldOptionLabelMap,
+	data1 map[string]interface{},
+	data2 map[string]interface{},
+) float64 {
 
 	var points float64 = 0
 	var rulesThatApply = 0
@@ -73,14 +81,30 @@ func CalculatePair(config model.CalculatorConfig, rules []model.ConditionalCompa
 				continue
 			}
 
-			//dataHolder1 := data1[config.FirstDataGroupIndex].(map[string]interface{})
 			value1 := data1[ruleDetails.FirstField.ID]
 
-			//dataHolder2 := data2[config.FirstDataGroupIndex].(map[string]interface{})
+			// get the label of the value if the field has options
+			field1OptionLabels := list1FieldOptionLabelMap[ruleDetails.FirstField.ID]
+			if field1OptionLabels != nil {
+				label, hasLabel := field1OptionLabels[value1]
+				if hasLabel {
+					value1 = label
+				}
+			}
+
 			value2 := data2[ruleDetails.SecondField.ID]
 
+			// get the label of the value if the field has options
+			field2OptionLabels := list2FieldOptionLabelMap[ruleDetails.SecondField.ID]
+			if field2OptionLabels != nil {
+				label, hasLabel := field2OptionLabels[value2]
+				if hasLabel {
+					value2 = label
+				}
+			}
+
 			comparisonPoints := compareValues(ruleDetails.Comparison, value1, value2)
-			points = points + comparisonPoints;
+			points = points + comparisonPoints
 			rulesThatApply += 1
 
 		} else if rule.Type == model.RuleTypeConditionalComparison {

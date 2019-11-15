@@ -1,6 +1,6 @@
 package model
 
 type ConditionalComparisonRule struct {
-	Comparisons []RuleBase
-	Type        RuleType
+	Comparisons []RuleBase `json:"comparisons"`
+	Type        RuleType   `json:"type"`
 }

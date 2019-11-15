@@ -1,7 +1,6 @@
 package atama
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -68,15 +67,7 @@ var calculateListTests = []CalculateListTest{
 }
 
 func TestCalculateList(t *testing.T) {
-	for _, test := range calculateListTests {
-		result := CalculateList(test.matrix, nil)
-
-		fmt.Println(result)
-		fmt.Println(result.possibleMatchCount)
-		fmt.Println(len(result.matches))
-		fmt.Println(result.maxScore)
-		for pivotId, match := range result.matches {
-			fmt.Println(pivotId, match.ItemID, match.Score)
-		}
-	}
+	//for _, test := range calculateListTests {
+	//	result := CalculateList(test.matrix, nil)
+	//}
 }
