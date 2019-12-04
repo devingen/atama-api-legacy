@@ -30,7 +30,6 @@ func GenerateFieldOptionLabelMap(fields []model.GenericField) FieldOptionLabelMa
 }
 
 func GenerateScoreMatrix(
-	config model.CalculatorConfig,
 	rules []model.ConditionalComparisonRule,
 	items1, items2 []MatchItem,
 	list1Fields, list2Fields []model.GenericField,
@@ -46,7 +45,6 @@ func GenerateScoreMatrix(
 
 		for _, secondItem := range items2 {
 			score := CalculatePair(
-				config,
 				rules,
 				list1FieldOptionLabelMap,
 				list2FieldOptionLabelMap,

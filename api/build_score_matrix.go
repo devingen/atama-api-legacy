@@ -42,12 +42,7 @@ func BuildScoreMatrix(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err.Error())
 	}
 
-	var generateScoreMatrixConfig = model.CalculatorConfig{
-		FieldID:    "email",
-		FieldLimit: "limit",
-	}
-
-	scoreMatrix := atama.GenerateScoreMatrix(generateScoreMatrixConfig, body.Rules, body.List1, body.List2, body.List1Fields, body.List2Fields)
+	scoreMatrix := atama.GenerateScoreMatrix(body.Rules, body.List1, body.List2, body.List1Fields, body.List2Fields)
 
 	_ = json.NewEncoder(w).Encode(BuildScoreMetricResponseBody{
 		ScoreMatrix: scoreMatrix,

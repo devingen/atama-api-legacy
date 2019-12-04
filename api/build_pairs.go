@@ -41,16 +41,11 @@ func BuildPairs(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err.Error())
 	}
 
-	var generateScoreMatrixConfig = model.CalculatorConfig{
-		FieldID:    "email",
-		FieldLimit: "limit",
-	}
-
 	start := time.Now()
 	log.Printf("")
 	log.Printf("%d %d", len(body.List1), len(body.List2))
 
-	scoreMatrix := atama.GenerateScoreMatrix(generateScoreMatrixConfig, body.Rules, body.List1, body.List2, body.List1Fields, body.List2Fields)
+	scoreMatrix := atama.GenerateScoreMatrix(body.Rules, body.List1, body.List2, body.List1Fields, body.List2Fields)
 	log.Printf("GenerateScoreMatrix took %s", time.Since(start))
 
 	result := atama.CalculateList(scoreMatrix, nil, 0, false)

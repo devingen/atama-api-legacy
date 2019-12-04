@@ -36,8 +36,8 @@ type CalculationResult struct {
 
 // possibleMatchCount = (maxIterationLimit + 1) ^ maxIterationLevel
 // EXCEPTION maxIterationLevel=0 -> possibleMatchCount=1
-var maxIterationLimit = 4
-var maxIterationLevel = 4
+var maxIterationLimit = 2
+var maxIterationLevel = 5
 
 func CalculateList(scoreMatrix []MatchItemScores, occupationMap OccupationMap, level int, reversed bool) CalculationResult {
 

@@ -3,6 +3,7 @@ package atama
 import (
 	"github.com/devingen/atama-api/model"
 	"github.com/devingen/atama-api/util"
+	"reflect"
 )
 
 func calculateSimilarity(array1, array2 []interface{}) float64 {
@@ -61,7 +62,6 @@ func compareValues(comparison model.Comparison, value1, value2 interface{}) floa
 type FieldOptionLabelMap map[string]map[interface{}]interface{}
 
 func CalculatePair(
-	config model.CalculatorConfig,
 	rules []model.ConditionalComparisonRule,
 	list1FieldOptionLabelMap, list2FieldOptionLabelMap FieldOptionLabelMap,
 	data1 map[string]interface{},
@@ -86,9 +86,24 @@ func CalculatePair(
 			// get the label of the value if the field has options
 			field1OptionLabels := list1FieldOptionLabelMap[ruleDetails.FirstField.ID]
 			if field1OptionLabels != nil {
-				label, hasLabel := field1OptionLabels[value1]
-				if hasLabel {
-					value1 = label
+				vt := reflect.TypeOf(value1)
+				switch vt.Kind() {
+
+				// used if the value is an array (multiple selection)
+				case reflect.Slice:
+					fallthrough
+				case reflect.Array:
+					for i, v := range value1.([]interface{}) {
+						label, hasLabel := field1OptionLabels[v]
+						if hasLabel {
+							value1.([]interface{})[i] = label
+						}
+					}
+				default:
+					label, hasLabel := field1OptionLabels[value1]
+					if hasLabel {
+						value1 = label
+					}
 				}
 			}
 
@@ -97,9 +112,24 @@ func CalculatePair(
 			// get the label of the value if the field has options
 			field2OptionLabels := list2FieldOptionLabelMap[ruleDetails.SecondField.ID]
 			if field2OptionLabels != nil {
-				label, hasLabel := field2OptionLabels[value2]
-				if hasLabel {
-					value2 = label
+				vt := reflect.TypeOf(value1)
+				switch vt.Kind() {
+
+				// used if the value is an array (multiple selection)
+				case reflect.Slice:
+					fallthrough
+				case reflect.Array:
+					for i, v := range value2.([]interface{}) {
+						label, hasLabel := field2OptionLabels[v]
+						if hasLabel {
+							value2.([]interface{})[i] = label
+						}
+					}
+				default:
+					label, hasLabel := field2OptionLabels[value2]
+					if hasLabel {
+						value2 = label
+					}
 				}
 			}
 
