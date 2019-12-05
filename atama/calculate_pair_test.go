@@ -97,14 +97,13 @@ func TestCompareValues(t *testing.T) {
 // region CalculatePair
 
 type CalculatePairTest struct {
-	config   model.CalculatorConfig
-	rules    []model.ConditionalComparisonRule
-	data1    map[string]interface{}
-	data2    map[string]interface{}
-	expected float64
+	rules                    []model.ConditionalComparisonRule
+	data1                    map[string]interface{}
+	list1FieldOptionLabelMap FieldOptionLabelMap
+	data2                    map[string]interface{}
+	list2FieldOptionLabelMap FieldOptionLabelMap
+	expected                 float64
 }
-
-var calculatorConfig = model.CalculatorConfig{}
 
 var rules1 = []model.ConditionalComparisonRule{
 	{
@@ -247,103 +246,126 @@ var rules4 = []model.ConditionalComparisonRule{
 
 var calculatePairTests = []CalculatePairTest{
 	{
-		calculatorConfig,
 		rules1,
 		map[string]interface{}{
 			"city": "İstanbul",
 		},
+		map[string]map[interface{}]interface{}{},
 		map[string]interface{}{
 			"city": "İstanbul",
 		},
+		map[string]map[interface{}]interface{}{},
 		1,
 	},
 	{
-		calculatorConfig,
 		rules1,
 		map[string]interface{}{
 			"city": "Edirne",
 		},
+		map[string]map[interface{}]interface{}{},
 		map[string]interface{}{
 			"city": "İstanbul",
 		},
+		map[string]map[interface{}]interface{}{},
 		0,
 	},
 	{
-		calculatorConfig,
 		rules2,
 		map[string]interface{}{
 			"city":      "Edirne",
 			"birthYear": 1432,
 		},
+		map[string]map[interface{}]interface{}{},
 		map[string]interface{}{
 			"city":      "İstanbul",
 			"birthYear": 1881,
 		},
+		map[string]map[interface{}]interface{}{},
 		0.5,
 	},
 	{
-		calculatorConfig,
 		rules2,
 		map[string]interface{}{
 			"city":      "Edirne",
 			"birthYear": 1453,
 		},
+		map[string]map[interface{}]interface{}{},
 		map[string]interface{}{
 			"city":      "İstanbul",
 			"birthYear": 1453,
 		},
+		map[string]map[interface{}]interface{}{},
 		0,
 	},
 	{
-		calculatorConfig,
 		rules3,
 		map[string]interface{}{
 			"city":      "İstanbul",
 			"birthYear": 1432,
 			"skills":    []string{"tactics", "language", "technology", "art"},
 		},
+		map[string]map[interface{}]interface{}{},
 		map[string]interface{}{
 			"city":      "Selanik",
 			"birthYear": 1881,
 			"skills":    []string{"tactics", "language", "defence", "industry"},
 		},
+		map[string]map[interface{}]interface{}{},
 		0.4444444444444444,
 	},
 	{
-		calculatorConfig,
 		rules4,
 		map[string]interface{}{
 			"city":      "İstanbul",
 			"birthYear": 1432,
 			"skills":    []string{"tactics", "language", "technology", "art"},
 		},
+		map[string]map[interface{}]interface{}{},
 		map[string]interface{}{
 			"city":      "Edirne",
 			"birthYear": 1881,
 			"skills":    []string{"tactics", "language", "defence", "industry"},
 		},
+		map[string]map[interface{}]interface{}{},
 		0.5833333333333333,
 	},
 	{
-		calculatorConfig,
 		rules4,
 		map[string]interface{}{
 			"city":      "İstanbul",
 			"birthYear": 1432,
 			"skills":    []string{"tactics", "language", "technology", "art"},
 		},
+		map[string]map[interface{}]interface{}{},
 		map[string]interface{}{
 			"city":      "Selanik",
 			"birthYear": 1881,
 			"skills":    []string{"tactics", "language", "defence", "industry"},
 		},
+		map[string]map[interface{}]interface{}{},
+		0.3333333333333333,
+	},
+	{
+		rules4,
+		map[string]interface{}{
+			"city":      "İstanbul",
+			"birthYear": 1432,
+			"skills":    []string{"tactics", "language", "technology", "art"},
+		},
+		map[string]map[interface{}]interface{}{},
+		map[string]interface{}{
+			"city":      "Selanik",
+			"birthYear": 1881,
+			"skills":    []string{"tactics", "language", "defence", "industry"},
+		},
+		map[string]map[interface{}]interface{}{},
 		0.3333333333333333,
 	},
 }
 
 func TestCalculatePair(t *testing.T) {
 	for i, test := range calculatePairTests {
-		result := CalculatePair(test.config, test.rules, test.data1, test.data2)
+		result := CalculatePair(test.rules, test.list1FieldOptionLabelMap, test.list2FieldOptionLabelMap, test.data1, test.data2)
 		if result != test.expected {
 			t.Errorf("Case %d: expected %v, got %v", i, test.expected, result)
 		}

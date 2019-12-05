@@ -50,9 +50,11 @@ var generateScoreMatrixRules = []model.ConditionalComparisonRule{
 }
 
 type GenerateScoreMatrixTest struct {
-	items1   []MatchItem
-	items2   []MatchItem
-	expected []MatchItemScores
+	items1      []MatchItem
+	list1Fields []model.GenericField
+	items2      []MatchItem
+	list2Fields []model.GenericField
+	expected    []MatchItemScores
 }
 
 var firstItem10 = MatchItem{
@@ -127,14 +129,16 @@ var generateScoreMatrixTests = []GenerateScoreMatrixTest{
 	{
 		items1: []MatchItem{
 			firstItem10,
-			firstItem20,
-			firstItem21,
+			//firstItem20,
+			//firstItem21,
 		},
+		list1Fields: []model.GenericField{},
 		items2: []MatchItem{
-			secondItem10,
-			secondItem20,
+			//secondItem10,
+			//secondItem20,
 			secondItem30,
 		},
+		list2Fields: []model.GenericField{},
 		expected: []MatchItemScores{
 			{
 				Item: firstItem10,
@@ -193,7 +197,7 @@ var generateScoreMatrixTests = []GenerateScoreMatrixTest{
 
 func TestGenerateScoreMatrix(t *testing.T) {
 	for _, test := range generateScoreMatrixTests {
-		result := GenerateScoreMatrix(generateScoreMatrixConfig, generateScoreMatrixRules, test.items1, test.items2)
+		result := GenerateScoreMatrix(generateScoreMatrixRules, test.items1, test.items2, test.list1Fields, test.list2Fields)
 
 		for i, row := range result {
 			for j, match := range row.Matches {
@@ -204,7 +208,7 @@ func TestGenerateScoreMatrix(t *testing.T) {
 					t.Errorf("Case %d: expected ID %v, got %v", i, expectedID, match.Item.GetID())
 				}
 				if expectedScore != match.Score {
-					t.Errorf("Case %d: expected ID %v, got %v", i, expectedScore, match.Score)
+					t.Errorf("Case %d: expected Score %v, got %v", i, expectedScore, match.Score)
 				}
 			}
 		}

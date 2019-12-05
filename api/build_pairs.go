@@ -3,20 +3,12 @@ package api
 import (
 	"encoding/json"
 	"github.com/devingen/atama-api/atama"
-	"github.com/devingen/atama-api/model"
+	"github.com/devingen/atama-api/dto"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"time"
 )
-
-type BuildPairsBody struct {
-	Rules       []model.ConditionalComparisonRule `json:"rules"`
-	List1       []atama.MatchItem                 `json:"list1"`
-	List1Fields []model.GenericField              `json:"list1Fields"`
-	List2       []atama.MatchItem                 `json:"list2"`
-	List2Fields []model.GenericField              `json:"list2Fields"`
-}
 
 type BuildPairsResponseBody atama.CalculationResult
 
@@ -30,7 +22,7 @@ func BuildPairs(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var body BuildPairsBody
+	var body dto.BuildPairsBody
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		log.Fatal(err.Error())

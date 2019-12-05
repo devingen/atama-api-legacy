@@ -77,7 +77,6 @@ func CalculatePair(
 
 			ruleDetails := rule.Comparisons[0]
 			if ruleDetails.FirstField == nil || ruleDetails.Comparison == "" || ruleDetails.SecondField == nil {
-				rulesThatApply += 1
 				continue
 			}
 
@@ -85,7 +84,7 @@ func CalculatePair(
 
 			// get the label of the value if the field has options
 			field1OptionLabels := list1FieldOptionLabelMap[ruleDetails.FirstField.ID]
-			if field1OptionLabels != nil {
+			if value1 != nil && field1OptionLabels != nil {
 				vt := reflect.TypeOf(value1)
 				switch vt.Kind() {
 
@@ -111,8 +110,8 @@ func CalculatePair(
 
 			// get the label of the value if the field has options
 			field2OptionLabels := list2FieldOptionLabelMap[ruleDetails.SecondField.ID]
-			if field2OptionLabels != nil {
-				vt := reflect.TypeOf(value1)
+			if value2 != nil && field2OptionLabels != nil {
+				vt := reflect.TypeOf(value2)
 				switch vt.Kind() {
 
 				// used if the value is an array (multiple selection)
@@ -133,9 +132,11 @@ func CalculatePair(
 				}
 			}
 
-			comparisonPoints := compareValues(ruleDetails.Comparison, value1, value2)
-			points = points + comparisonPoints
-			rulesThatApply += 1
+			if value1 != nil && value2 != nil {
+				rulesThatApply += 1
+				comparisonPoints := compareValues(ruleDetails.Comparison, value1, value2)
+				points = points + comparisonPoints
+			}
 
 		} else if rule.Type == model.RuleTypeConditionalComparison {
 
@@ -182,5 +183,5 @@ func CalculatePair(
 	if points == 0 {
 		return 0
 	}
-	return float64(points) / float64(len(rules))
+	return float64(points) / float64(rulesThatApply)
 }
