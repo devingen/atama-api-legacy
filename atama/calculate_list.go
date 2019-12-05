@@ -1,6 +1,8 @@
 package atama
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type OccupationMap map[string]string
 
@@ -36,10 +38,16 @@ type CalculationResult struct {
 
 // possibleMatchCount = (maxIterationLimit + 1) ^ maxIterationLevel
 // EXCEPTION maxIterationLevel=0 -> possibleMatchCount=1
-var maxIterationLimit = 2
-var maxIterationLevel = 5
+//var maxIterationLimit = 6
+//var maxIterationLevel = 6
 
-func CalculateList(scoreMatrix []MatchItemScores, occupationMap OccupationMap, level int, reversed bool) CalculationResult {
+// 8 should be 8. sqrt(8)=3
+// 8 should be 8. sqrt(8/3)=1.6
+
+// 40 should be 6, sqrt(40)=6
+// 130 should be 6, sqrt(130/3)=6
+
+func CalculateList(scoreMatrix []MatchItemScores, occupationMap OccupationMap, maxIterationLimit, maxIterationLevel int, level int) CalculationResult {
 
 	var maxScore float64 = 0
 	totalPossibleMatchCount := 0
@@ -101,7 +109,7 @@ func CalculateList(scoreMatrix []MatchItemScores, occupationMap OccupationMap, l
 		//	fmt.Println("      ", item.Item.GetID())
 		//}
 
-		innerCalculation := CalculateList(rest, internalOccupation, level+1, reversed)
+		innerCalculation := CalculateList(rest, internalOccupation, maxIterationLimit, maxIterationLevel, level+1)
 
 		// add matches from the inner calculation
 		for k, v := range innerCalculation.Matches {
@@ -123,6 +131,10 @@ func CalculateList(scoreMatrix []MatchItemScores, occupationMap OccupationMap, l
 		if i >= maxIterationLimit || level >= maxIterationLevel {
 			break
 		}
+	}
+
+	if level == 0 {
+		fmt.Println("totalPossibleMatchCount", totalPossibleMatchCount)
 	}
 
 	return CalculationResult{

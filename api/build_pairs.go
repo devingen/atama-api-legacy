@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/devingen/atama-api/atama"
 	"github.com/devingen/atama-api/dto"
+	"github.com/devingen/atama-api/util"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -33,14 +34,23 @@ func BuildPairs(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err.Error())
 	}
 
+	m := len(body.List1)
+	n := len(body.List2)
+
 	start := time.Now()
 	log.Printf("")
-	log.Printf("%d %d", len(body.List1), len(body.List2))
+	log.Printf("%d %d", m, n)
+
+	maxIterationLimit := util.MaxIterationLimit(m)
+	log.Println("maxIterationLimit", maxIterationLimit)
+
+	maxIterationLevel := util.MaxIterationLevel(n)
+	log.Println("maxIterationLevel", maxIterationLevel)
 
 	scoreMatrix := atama.GenerateScoreMatrix(body.Rules, body.List1, body.List2, body.List1Fields, body.List2Fields)
 	log.Printf("GenerateScoreMatrix took %s", time.Since(start))
 
-	result := atama.CalculateList(scoreMatrix, nil, 0, false)
+	result := atama.CalculateList(scoreMatrix, nil, maxIterationLimit, maxIterationLevel, 0)
 	log.Printf("CalculateList took %s", time.Since(start))
 
 	_ = json.NewEncoder(w).Encode(result)

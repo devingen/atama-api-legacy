@@ -7,6 +7,7 @@ import (
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/devingen/atama-api/atama"
 	"github.com/devingen/atama-api/dto"
+	"github.com/devingen/atama-api/util"
 	"log"
 	"time"
 )
@@ -26,6 +27,15 @@ func HandleBuildPairsRequest(ctx context.Context, req events.APIGatewayProxyRequ
 		}, nil
 	}
 
+	m := len(body.List1)
+	n := len(body.List2)
+
+	maxIterationLimit := util.MaxIterationLimit(m)
+	log.Println("maxIterationLimit", maxIterationLimit)
+
+	maxIterationLevel := util.MaxIterationLevel(n)
+	log.Println("maxIterationLevel", maxIterationLevel)
+
 	start := time.Now()
 	log.Printf("Received build pairs request")
 	log.Printf("%d %d", len(body.List1), len(body.List2))
@@ -33,7 +43,7 @@ func HandleBuildPairsRequest(ctx context.Context, req events.APIGatewayProxyRequ
 	scoreMatrix := atama.GenerateScoreMatrix(body.Rules, body.List1, body.List2, body.List1Fields, body.List2Fields)
 	log.Printf("GenerateScoreMatrix: %s", time.Since(start))
 
-	result := atama.CalculateList(scoreMatrix, nil, 0, false)
+	result := atama.CalculateList(scoreMatrix, nil, maxIterationLimit, maxIterationLevel, 0)
 	log.Printf("CalculateList: %s", time.Since(start))
 
 	response, err := json.Marshal(result)

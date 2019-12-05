@@ -16,14 +16,14 @@ very long time for long lists. So we limit the iteration and deepness to go thro
 
 The number of possible combinations can be calculated as `(maxIterationLimit + 1) ^ maxIterationLevel`. If no limit 
 is set, `maxIterationLimit` and `maxIterationLevel` re equal to the item count. If we assume that the lists have same
-number of items, `N = M`, the possible combination counts will be like this;
+number of items, `N = M`, the possible iteration count table will be like this;
 
 | Items | Combinations  |
 |-------|---------------|
 | 2     | 9             |
 | 3     | 64            |
 | 4     | 625           |
-| 5     | 776           |
+| 5     | 7,776         |
 | 6     | 117,649       |
 | 7     | 2,097,152     |
 | 8     | 43,046,721    |
