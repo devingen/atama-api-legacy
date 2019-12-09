@@ -1,9 +1,5 @@
 package atama
 
-import (
-	"fmt"
-)
-
 type OccupationMap map[string]string
 
 func splice(slice []MatchItemScores, s int) []MatchItemScores {
@@ -53,13 +49,13 @@ func CalculateList(scoreMatrix []MatchItemScores, occupationMap OccupationMap, m
 	totalPossibleMatchCount := 0
 	bestMatches := map[string]ResultPairScore{}
 
-	partLength := len(scoreMatrix) / maxIterationLimit
+	//partLength := len(scoreMatrix) / maxIterationLimit
 	for i := range scoreMatrix {
 
-		index := i * partLength
-		if index >= len(scoreMatrix) {
-			index -= 1
-		}
+		index := i // * partLength
+		//if index >= len(scoreMatrix) {
+		//	index -= 1
+		//}
 
 		matches := map[string]ResultPairScore{}
 
@@ -119,23 +115,23 @@ func CalculateList(scoreMatrix []MatchItemScores, occupationMap OccupationMap, m
 		totalPossibleMatchCount += innerCalculation.PossibleMatchCount
 		score += innerCalculation.MaxScore
 
-		if level == 0 {
-			fmt.Println(index, "score", score)
-		}
+		//if level == 0 {
+		//	fmt.Println(index, "score", score)
+		//}
 
 		if score >= maxScore {
 			bestMatches = matches
 			maxScore = score
 		}
 
-		if i >= maxIterationLimit || level >= maxIterationLevel {
-			break
-		}
+		//if i >= maxIterationLimit || level >= maxIterationLevel {
+		//	break
+		//}
 	}
 
-	if level == 0 {
-		fmt.Println("totalPossibleMatchCount", totalPossibleMatchCount)
-	}
+	//if level == 0 {
+	//	fmt.Println("totalPossibleMatchCount", totalPossibleMatchCount)
+	//}
 
 	return CalculationResult{
 		PossibleMatchCount: totalPossibleMatchCount,

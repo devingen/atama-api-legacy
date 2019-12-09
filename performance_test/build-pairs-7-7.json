@@ -1,0 +1,440 @@
+{
+  "list1Fields": [
+    {
+      "description": "",
+      "id": "Jobstartye56",
+      "max": 2019,
+      "min": 2000,
+      "placeholder": "Year",
+      "required": false,
+      "step": 1,
+      "title": "Job start year",
+      "type": "number"
+    },
+    {
+      "description": "",
+      "id": "City348",
+      "inputType": "radioButton",
+      "options": [
+        {
+          "label": "Berlin",
+          "value": "Berlin"
+        },
+        {
+          "label": "İstanbul",
+          "value": "Istanbul"
+        },
+        {
+          "label": "London",
+          "value": "London"
+        }
+      ],
+      "placeholder": "",
+      "required": false,
+      "title": "City",
+      "type": "singleChoice"
+    },
+    {
+      "description": "",
+      "id": "Expertise160",
+      "inputType": "checkbox",
+      "options": [
+        {
+          "label": "Marketing",
+          "value": "Marketing"
+        },
+        {
+          "label": "Project Management",
+          "value": "ProjectManagement"
+        },
+        {
+          "label": "IT",
+          "value": "IT"
+        },
+        {
+          "label": "HR",
+          "value": "HR"
+        }
+      ],
+      "placeholder": "",
+      "required": false,
+      "title": "Expertise",
+      "type": "multipleChoice"
+    }
+  ],
+  "list2Fields": [
+    {
+      "description": "",
+      "id": "Jobstartye158",
+      "max": 2019,
+      "min": 2000,
+      "placeholder": "",
+      "required": false,
+      "step": 1,
+      "title": "Job start year",
+      "type": "number"
+    },
+    {
+      "description": "",
+      "id": "City836",
+      "inputType": "radioButton",
+      "options": [
+        {
+          "label": "Berlin",
+          "value": "Berlin"
+        },
+        {
+          "label": "İstanbul",
+          "value": "Istanbul"
+        },
+        {
+          "label": "London",
+          "value": "London"
+        }
+      ],
+      "placeholder": "",
+      "required": false,
+      "title": "City",
+      "type": "singleChoice"
+    },
+    {
+      "description": "",
+      "id": "Areatoimpr74",
+      "inputType": "checkbox",
+      "options": [
+        {
+          "label": "IT",
+          "value": "IT"
+        },
+        {
+          "label": "HR",
+          "value": "HR"
+        },
+        {
+          "label": "Marketing",
+          "value": "Marketing"
+        },
+        {
+          "label": "Project Management",
+          "value": "ProjectManagement"
+        }
+      ],
+      "placeholder": "",
+      "required": false,
+      "title": "Area to improve",
+      "type": "multipleChoice"
+    }
+  ],
+  "rules": [
+    {
+      "comparisons": [
+        {
+          "firstField": {
+            "description": "",
+            "id": "Jobstartye56",
+            "max": 2019,
+            "min": 2000,
+            "placeholder": "Year",
+            "required": false,
+            "step": 1,
+            "title": "Job start year",
+            "type": "number"
+          },
+          "secondField": {
+            "description": "",
+            "id": "Jobstartye158",
+            "max": 2019,
+            "min": 2000,
+            "placeholder": "",
+            "required": false,
+            "step": 1,
+            "title": "Job start year",
+            "type": "number"
+          },
+          "comparison": "lt"
+        }
+      ],
+      "type": "comparison"
+    },
+    {
+      "comparisons": [
+        {
+          "firstField": {
+            "description": "",
+            "id": "City348",
+            "inputType": "radioButton",
+            "options": [
+              {
+                "label": "Berlin",
+                "value": "Berlin"
+              },
+              {
+                "label": "İstanbul",
+                "value": "Istanbul"
+              },
+              {
+                "label": "London",
+                "value": "London"
+              }
+            ],
+            "placeholder": "",
+            "required": false,
+            "title": "City",
+            "type": "singleChoice"
+          },
+          "secondField": {
+            "description": "",
+            "id": "City836",
+            "inputType": "radioButton",
+            "options": [
+              {
+                "label": "Berlin",
+                "value": "Berlin"
+              },
+              {
+                "label": "İstanbul",
+                "value": "Istanbul"
+              },
+              {
+                "label": "London",
+                "value": "London"
+              }
+            ],
+            "placeholder": "",
+            "required": false,
+            "title": "City",
+            "type": "singleChoice"
+          },
+          "comparison": "ne"
+        }
+      ],
+      "type": "comparison"
+    },
+    {
+      "comparisons": [
+        {
+          "firstField": {
+            "description": "",
+            "id": "Expertise160",
+            "inputType": "checkbox",
+            "options": [
+              {
+                "label": "Marketing",
+                "value": "Marketing"
+              },
+              {
+                "label": "Project Management",
+                "value": "ProjectManagement"
+              },
+              {
+                "label": "IT",
+                "value": "IT"
+              },
+              {
+                "label": "HR",
+                "value": "HR"
+              }
+            ],
+            "placeholder": "",
+            "required": false,
+            "title": "Expertise",
+            "type": "multipleChoice"
+          },
+          "secondField": {
+            "description": "",
+            "id": "Areatoimpr74",
+            "inputType": "checkbox",
+            "options": [
+              {
+                "label": "IT",
+                "value": "IT"
+              },
+              {
+                "label": "HR",
+                "value": "HR"
+              },
+              {
+                "label": "Marketing",
+                "value": "Marketing"
+              },
+              {
+                "label": "Project Management",
+                "value": "ProjectManagement"
+              }
+            ],
+            "placeholder": "",
+            "required": false,
+            "title": "Area to improve",
+            "type": "multipleChoice"
+          },
+          "comparison": "different"
+        }
+      ],
+      "type": "comparison"
+    }
+  ],
+  "list1": [
+    {
+      "_id": "5de9ac57198a620006bee14a",
+      "email": "ams.mentor7@mentornity.com",
+      "firstName": "Ahmet",
+      "lastName": "Tatlı",
+      "City348": "Berlin",
+      "Expertise160": [
+        "IT"
+      ],
+      "Jobstartye56": 2003
+    },
+    {
+      "_id": "5de9ac78ca4c3f0007f1bd9a",
+      "email": "ams.mentor9@mentornity.com",
+      "firstName": "Eladia",
+      "lastName": "Capitan",
+      "City348": "Istanbul",
+      "Expertise160": [
+        "Marketing",
+        "ProjectManagement"
+      ],
+      "Jobstartye56": 2008
+    },
+    {
+      "_id": "5de9abe0928d680007475102",
+      "email": "ams.mentor3@mentornity.com",
+      "firstName": "Haydar",
+      "lastName": "Koçan",
+      "City348": "London",
+      "Expertise160": [
+        "ProjectManagement"
+      ],
+      "Jobstartye56": 2010
+    },
+    {
+      "_id": "5de6fa8eca4c3f0007f1b34b",
+      "email": "ams.mentor2@mentornity.com",
+      "firstName": "Jenifer",
+      "lastName": "Boyle",
+      "City348": "Berlin",
+      "Expertise160": [
+        "HR"
+      ],
+      "Jobstartye56": 2001
+    },
+    {
+      "_id": "5de9ac047da23500068cd5c1",
+      "email": "ams.mentor4@mentornity.com",
+      "firstName": "Johan",
+      "lastName": "Jovovic",
+      "City348": "Berlin",
+      "Expertise160": [
+        "HR",
+        "IT"
+      ],
+      "Jobstartye56": 2000
+    },
+    {
+      "_id": "5de6fa6b198a620006bed6ee",
+      "email": "ams.mentor1@mentornity.com",
+      "firstName": "John",
+      "lastName": "Freeman",
+      "City348": "London",
+      "Expertise160": [
+        "IT",
+        "ProjectManagement"
+      ],
+      "Jobstartye56": "2013"
+    },
+    {
+      "_id": "5de9ac8cca4c3f0007f1bda0",
+      "email": "ams.mentor10@mentornity.com",
+      "firstName": "Mahmoud",
+      "lastName": "Beita",
+      "City348": "Istanbul",
+      "Expertise160": [
+        "Marketing"
+      ],
+      "Jobstartye56": 2012
+    }
+  ],
+  "list2": [
+    {
+      "_id": "5de6ff2e198a620006bed6f4",
+      "email": "ams.mentee3@mentornity.com",
+      "firstName": "Abigail",
+      "lastName": "Venice",
+      "Areatoimpr74": [
+        "HR"
+      ],
+      "City836": "Berlin",
+      "Jobstartye158": 2008
+    },
+    {
+      "_id": "5de9ada4198a620006bee155",
+      "email": "ams.mentee6@mentornity.com",
+      "firstName": "Aslı",
+      "lastName": "Yer",
+      "Areatoimpr74": [
+        "HR",
+        "Marketing"
+      ],
+      "City836": "Istanbul",
+      "Jobstartye158": 2019
+    },
+    {
+      "_id": "5de9add77da23500068cd5d2",
+      "email": "ams.mentee8@mentornity.com",
+      "firstName": "Birdal",
+      "lastName": "Kova",
+      "Areatoimpr74": [
+        "IT"
+      ],
+      "City836": "London",
+      "Jobstartye158": 2012
+    },
+    {
+      "_id": "5de9adc67da23500068cd5cd",
+      "email": "ams.mentee7@mentornity.com",
+      "firstName": "Fouad",
+      "lastName": "Talkie",
+      "Areatoimpr74": [
+        "ProjectManagement"
+      ],
+      "City836": "Istanbul",
+      "Jobstartye158": 2015
+    },
+    {
+      "_id": "5de6fefb7da23500068cd003",
+      "email": "ams.mentee1@mentornity.com",
+      "firstName": "Luis",
+      "lastName": "Frank",
+      "Areatoimpr74": [
+        "Marketing",
+        "ProjectManagement"
+      ],
+      "City836": "London",
+      "Jobstartye158": 2013
+    },
+    {
+      "_id": "5de9ad81198a620006bee150",
+      "email": "ams.mentee4@mentornity.com",
+      "firstName": "Maria",
+      "lastName": "Casanova",
+      "Areatoimpr74": [
+        "Marketing"
+      ],
+      "City836": "Berlin",
+      "Jobstartye158": 2016
+    },
+    {
+      "_id": "5de9ade7198a620006bee15a",
+      "email": "ams.mentee9@mentornity.com",
+      "firstName": "Martin",
+      "lastName": "Kovakic",
+      "Areatoimpr74": [
+        "Marketing",
+        "ProjectManagement"
+      ],
+      "City836": "Istanbul",
+      "Jobstartye158": 2007
+    }
+  ]
+}

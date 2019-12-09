@@ -132,7 +132,7 @@ func CalculatePair(
 				}
 			}
 
-			if value1 != nil && value2 != nil {
+			if !(value1 == nil && value2 == nil) {
 				rulesThatApply += 1
 				comparisonPoints := compareValues(ruleDetails.Comparison, value1, value2)
 				points = points + comparisonPoints

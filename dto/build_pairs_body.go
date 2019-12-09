@@ -12,3 +12,11 @@ type BuildPairsBody struct {
 	List2       []atama.MatchItem                 `json:"list2"`
 	List2Fields []model.GenericField              `json:"list2Fields"`
 }
+
+type BuildPairsResponseBody struct {
+	AverageScore         float64                `json:"averageScore"`
+	PossibleMatchCount   int                    `json:"possibleMatchCount"`
+	PairMapFirstToSecond model.PairScoreListMap `json:"pairMapFirstToSecond"`
+	PairMapSecondToFirst model.PairScoreListMap `json:"pairMapSecondToFirst"`
+	ScoreMap             model.ScoreMapMap      `json:"scoreMap"`
+}

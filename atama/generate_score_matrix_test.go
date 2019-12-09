@@ -2,6 +2,7 @@ package atama
 
 import (
 	"github.com/devingen/atama-api/model"
+	"github.com/devingen/atama-api/testutil"
 	"testing"
 )
 
@@ -57,136 +58,68 @@ type GenerateScoreMatrixTest struct {
 	expected    []MatchItemScores
 }
 
-var firstItem10 = MatchItem{
-	"_id":        "can@doruk.com:0",
-	"_v":         0,
-	"email":      "can@doruk.com",
-	"firstName":  "Can",
-	"lastName":   "Doruk",
-	"startYear":  2008,
-	"department": "IT",
-}
-
-var firstItem20 = MatchItem{
-	"_id":        "kamil@boyer.com:0",
-	"_v":         0,
-	"email":      "kamil@boyer.com",
-	"firstName":  "Kamil",
-	"lastName":   "Boyer",
-	"startYear":  2006,
-	"city":       "Ankara",
-	"department": "Sales",
-	"limit":      2,
-}
-
-var firstItem21 = MatchItem{
-	"_id":        "kamil@boyer.com:1",
-	"_v":         1,
-	"email":      "kamil@boyer.com",
-	"firstName":  "Kamil",
-	"lastName":   "Boyer",
-	"startYear":  2006,
-	"city":       "Ankara",
-	"department": "Sales",
-	"limit":      2,
-}
-
-var secondItem10 = MatchItem{
-	"_id":        "seda@candan.com",
-	"_v":         0,
-	"email":      "seda@candan.com",
-	"firstName":  "Seda",
-	"lastName":   "Candan",
-	"startYear":  2010,
-	"city":       "İstanbul",
-	"department": "Sales",
-}
-
-var secondItem20 = MatchItem{
-	"_id":        "mert@kudret.com",
-	"_v":         0,
-	"email":      "mert@kudret.com",
-	"firstName":  "Mert",
-	"lastName":   "Kudret",
-	"startYear":  2007,
-	"city":       "Ankara",
-	"department": "IT",
-	"limit":      2,
-}
-
-var secondItem30 = MatchItem{
-	"_id":        "merve@toptan.com",
-	"_v":         0,
-	"email":      "merve@toptan.com",
-	"firstName":  "Merve",
-	"lastName":   "Toptan",
-	"startYear":  2012,
-	"department": "Sales",
-	"limit":      2,
-}
-
 var generateScoreMatrixTests = []GenerateScoreMatrixTest{
 	{
 		items1: []MatchItem{
-			firstItem10,
-			//firstItem20,
-			//firstItem21,
+			testutil.FirstItem10,
+			testutil.FirstItem20,
+			testutil.FirstItem21,
 		},
 		list1Fields: []model.GenericField{},
 		items2: []MatchItem{
-			//secondItem10,
-			//secondItem20,
-			secondItem30,
+			testutil.SecondItem10,
+			testutil.SecondItem20,
+			testutil.SecondItem30,
 		},
 		list2Fields: []model.GenericField{},
 		expected: []MatchItemScores{
 			{
-				Item: firstItem10,
+				Item: testutil.FirstItem10,
 				Matches: []PairScore{
 					{
-						Item:  secondItem30,
+						Item:  testutil.SecondItem30,
 						Score: 1,
 					},
 					{
-						Item:  secondItem10,
+						Item:  testutil.SecondItem10,
 						Score: 0.6666666666666666,
 					},
 					{
-						Item:  secondItem20,
+						Item:  testutil.SecondItem20,
 						Score: 0,
 					},
 				},
 			},
 			{
-				Item: firstItem20,
+				Item: testutil.FirstItem20,
 				Matches: []PairScore{
 					{
-						Item:  secondItem20,
+						Item:  testutil.SecondItem20,
 						Score: 1,
 					},
 					{
-						Item:  secondItem10,
+						Item:  testutil.SecondItem10,
 						Score: 0.3333333333333333,
 					},
 					{
-						Item:  secondItem30,
+						Item:  testutil.SecondItem30,
 						Score: 0.3333333333333333,
 					},
 				},
 			},
 			{
-				Item: firstItem21,
+				Item: testutil.FirstItem21,
 				Matches: []PairScore{
 					{
-						Item:  secondItem20,
+						Item:  testutil.SecondItem20,
 						Score: 1,
 					},
 					{
-						Item:  secondItem10,
+						Item:  testutil.SecondItem10,
 						Score: 0.3333333333333333,
 					},
 					{
-						Item:  secondItem30,
+						Item:  testutil.SecondItem30,
 						Score: 0.3333333333333333,
 					},
 				},
