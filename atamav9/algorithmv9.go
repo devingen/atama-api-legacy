@@ -1,4 +1,4 @@
-package atamav7
+package atamav9
 
 import (
 	"github.com/devingen/atama-api/atama"
@@ -110,7 +110,7 @@ func ClonePairMap(occupationMap PairMap) PairMap {
 	return clone
 }
 
-func CalculateMap(maxLevel int, scoreMapMap ScoreStackMap, pairMapSecondToFirst PairMap, pairMapFirstToSecond PairMap, level int) CalculationResultMap {
+func CalculateMap(maxLevel, iterationLimit int, scoreMapMap ScoreStackMap, pairMapSecondToFirst PairMap, pairMapFirstToSecond PairMap, level int) CalculationResultMap {
 
 	result := CalculationResultMap{
 		IterationMatchCount:  1,
@@ -120,7 +120,13 @@ func CalculateMap(maxLevel int, scoreMapMap ScoreStackMap, pairMapSecondToFirst 
 		PairMapFirstToSecond: pairMapFirstToSecond,
 	}
 
+	iteration := 0
 	for firstItemID, scoreBundle := range scoreMapMap {
+
+		if iteration > iterationLimit {
+			break
+		}
+		iteration++
 
 		if _, hasID := pairMapFirstToSecond[firstItemID]; hasID {
 			continue
@@ -140,7 +146,7 @@ func CalculateMap(maxLevel int, scoreMapMap ScoreStackMap, pairMapSecondToFirst 
 			break
 		}
 
-		innerResult := CalculateMap(maxLevel, scoreMapMap, internalPairMapSecondToFirst, internalPairMapFirstToSecond, level+1)
+		innerResult := CalculateMap(maxLevel, iterationLimit, scoreMapMap, internalPairMapSecondToFirst, internalPairMapFirstToSecond, level+1)
 
 		result.IterationMatchCount += innerResult.IterationMatchCount
 		result.PossibleMatchCount += innerResult.PossibleMatchCount

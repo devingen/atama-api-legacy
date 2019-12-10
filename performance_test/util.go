@@ -28,11 +28,11 @@ func ReadFile(name string) (*dto.BuildPairsBody, error) {
 }
 
 var files = []string{
-	"build-pairs-5-5.json",
-	"build-pairs-7-7.json",
-	"build-pairs-8-8.json",
+	//"build-pairs-5-5.json",
+	//"build-pairs-7-7.json",
+	//"build-pairs-8-8.json",
 	"build-pairs-9-9.json",
-	"build-pairs-10-10.json",
+	//"build-pairs-10-10.json",
 	//"build-pairs-15-15.json",
 	//"build-pairs-21-21.json",
 }

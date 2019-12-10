@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/devingen/atama-api/atamav7"
+	"github.com/devingen/atama-api/atamav9"
 	"github.com/devingen/atama-api/dto"
 	"github.com/devingen/atama-api/model"
 	"github.com/devingen/atama-api/util"
@@ -17,10 +17,10 @@ func BuildPairs(body dto.BuildPairsBody) dto.BuildPairsResponseBody {
 	log.Printf("")
 	log.Printf("%d %d", m, n)
 
-	scoreStackMap, hashIdMap := atamav7.GenerateScoreMap(body.Rules, body.List1, body.List2, body.List1Fields, body.List2Fields)
+	scoreStackMap, hashIdMap := atamav9.GenerateScoreMap(body.Rules, body.List1, body.List2, body.List1Fields, body.List2Fields)
 	log.Printf("GenerateScoreMap took %s", time.Since(start))
 
-	result := atamav7.CalculateMap(len(body.List1), util.MaxIterationLimit(len(body.List1)), scoreStackMap, atamav7.PairMap{}, atamav7.PairMap{}, 0)
+	result := atamav9.CalculateMap(len(body.List1), util.MaxIterationLimit(len(body.List1)), scoreStackMap, atamav9.PairMap{}, atamav9.PairMap{}, 0)
 	log.Printf("CalculateMap took %s", time.Since(start))
 	//spew.Dump(result)
 

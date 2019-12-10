@@ -41,6 +41,10 @@ Run this command to start development server: `go run api.go`. It will start the
 
 **Viewing the coverage report:** `go tool cover -html=coverage.out`
 
+## Performance Testing
+
+Go to folder `cd performance_test` and execute the test `go test -run TestPerformanceWithMap`
+
 ## Deployment
 
 1. Generate executable `GOOS=linux go build aws_lambda/build_pairs.go` 
